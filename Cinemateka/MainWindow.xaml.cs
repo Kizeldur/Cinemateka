@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace Cinemateka
 {
@@ -27,6 +28,18 @@ namespace Cinemateka
         public MainWindow()
         {
             InitializeComponent();
+            using (var db = new ShitAssContext())
+            {
+                db.TableCinematekas.Add(new TableCinemateka
+                {
+                    MovieTitle = "Jurrasic_Park",
+                    LeadActor = "ThisGuy",
+                    Director = "Spielberg",
+                    Year = 123,
+
+                });
+                db.SaveChanges();
+            }
             //DBConnect();
         }
 
@@ -80,7 +93,9 @@ namespace Cinemateka
                 result.Read();
                 label_progress.Content = result.GetString("movie_title");
                 result.Close();*/
-                List<Cinemateka> shitAsscinemateka = new List<Cinemateka>();
+                List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
+                var btn = new Button();
+               //var c = new IEnumerable<(string, Button, Button)>();
                 using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
@@ -89,14 +104,12 @@ namespace Cinemateka
                         {
                             label_progress.Content = movie.MovieTitle;
                             shitAsscinemateka.Add(movie);
+                           
                         }
                     }
-					DataTable.ItemSourse = shitAsscinemateka;
+					DataTable.ItemsSource = shitAsscinemateka;
                 }
-            }
-                
-            
-            
+            }  
         }
         
         private MySqlDataReader ExecuteCommand(string argument)

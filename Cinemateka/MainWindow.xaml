@@ -9,45 +9,38 @@
     <Grid>
         <TextBox x:Name="Input_SearchBar" 
                  HorizontalAlignment="Left" 
-                 Margin="178,106,0,0"
+                 Margin="179,50,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
-                 Width="165"
-                 RenderTransformOrigin="0.516,0.625"
+                 Width="202"
+                 RenderTransformOrigin="0.516,0.625" Height="20"
         />
         <Button x:Name="Button_Search" Content="Поиск" 
-                HorizontalAlignment="Center" 
-                Margin="0,107,0,0" 
+                HorizontalAlignment="Left" 
+                Margin="400,50,0,0" 
                 VerticalAlignment="Top"
-                Click="Button_Search_Click"        
+                Click="Button_Search_Click" RenderTransformOrigin="0.465,0.536"        
         />
         <TextBlock Text="Поиск фильмов" 
                    HorizontalAlignment="Left" 
-                   Margin="69,108,0,0" 
+                   Margin="77,50,0,0" 
                    TextWrapping="Wrap" 
-                   VerticalAlignment="Top"
+                   VerticalAlignment="Top" Height="20"
         />
-		
-		
-		
-        <Grid Margin="169,167,338,217">
-            <Border Width="auto" Height="auto" 
-                BorderBrush="Black"
-                BorderThickness="1" Margin="10,0,-10,0"
-            >
 
-            </Border>
-        </Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="69,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
-		<DataGrid x:Name="DataTable" Margin="69,180,0,0">
-			<DataGrid.Items>
-			</DataGrid.Items>
-			<DataGrid.Columns >
-			</DataGrid.Columns>
-		</DataGrid>
-		
-        <TextBlock HorizontalAlignment="Left" Margin="69,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
-        <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="163,267,0,0" VerticalAlignment="Top" Width="256"/>
+
+
+        <Grid Margin="169,167,338,217"/>
+        <TextBlock HorizontalAlignment="Left" Margin="77,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
+        <DataGrid x:Name="DataTable" Margin="77,122,95,134">
+            <DataGrid.Items>
+            </DataGrid.Items>
+            <DataGrid.Columns >
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock HorizontalAlignment="Left" Margin="69,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
+        <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="206,347,0,0" VerticalAlignment="Top" Width="256"/>
 
     </Grid>
 </Window>
