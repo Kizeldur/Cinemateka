@@ -27,6 +27,9 @@
                    TextWrapping="Wrap" 
                    VerticalAlignment="Top"
         />
+		
+		
+		
         <Grid Margin="169,167,338,217">
             <Border Width="auto" Height="auto" 
                 BorderBrush="Black"
@@ -35,8 +38,15 @@
 
             </Border>
         </Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="69,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="69,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="69,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
+		<DataGrid x:Name="DataTable" Margin="69,180,0,0">
+			<DataGrid.Items>
+			</DataGrid.Items>
+			<DataGrid.Columns >
+			</DataGrid.Columns>
+		</DataGrid>
+		
+        <TextBlock HorizontalAlignment="Left" Margin="69,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
         <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="163,267,0,0" VerticalAlignment="Top" Width="256"/>
 
     </Grid>

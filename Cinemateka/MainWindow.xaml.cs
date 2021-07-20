@@ -24,8 +24,6 @@ namespace Cinemateka
         const string connection = "Server=mysql60.hostland.ru;Database=host1323541_vrn05;Uid=host1323541_itstep;Pwd=269f43dc;";
         private MySqlConnection db;
         
-        
-        
         public MainWindow()
         {
             InitializeComponent();
@@ -82,7 +80,7 @@ namespace Cinemateka
                 result.Read();
                 label_progress.Content = result.GetString("movie_title");
                 result.Close();*/
-                
+                List<Cinemateka> shitAsscinemateka = new List<Cinemateka>();
                 using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
@@ -90,9 +88,10 @@ namespace Cinemateka
                         if (argument == movie.MovieTitle || argument == movie.Director || argument == movie.LeadActor)
                         {
                             label_progress.Content = movie.MovieTitle;
-                            
+                            shitAsscinemateka.Add(movie);
                         }
                     }
+					DataTable.ItemSourse = shitAsscinemateka;
                 }
             }
                 
@@ -100,8 +99,6 @@ namespace Cinemateka
             
         }
         
-        
-
         private MySqlDataReader ExecuteCommand(string argument)
         {
             var select = $"SELECT * FROM table_cinemateka WHERE movie_title='{argument}' OR director = '{argument}' OR lead_actor='{argument}';";
