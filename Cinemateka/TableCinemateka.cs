@@ -12,5 +12,6 @@ namespace Cinemateka
         public string MovieTitle { get; set; }
         public string LeadActor { get; set; }
         public string Director { get; set; }
+
     }
 }

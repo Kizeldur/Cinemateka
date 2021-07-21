@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinemateka"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="500" Width="800">
+    <Grid Margin="0,0,0,7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="539*"/>
+            <ColumnDefinition Width="261*"/>
+        </Grid.ColumnDefinitions>
         <TextBox x:Name="Input_SearchBar" 
                  HorizontalAlignment="Left" 
-                 Margin="179,50,0,0"
+                 Margin="179,29,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Width="202"
@@ -17,30 +21,59 @@
         />
         <Button x:Name="Button_Search" Content="Поиск" 
                 HorizontalAlignment="Left" 
-                Margin="400,50,0,0" 
+                Margin="400,29,0,0" 
                 VerticalAlignment="Top"
                 Click="Button_Search_Click" RenderTransformOrigin="0.465,0.536"        
         />
         <TextBlock Text="Поиск фильмов" 
                    HorizontalAlignment="Left" 
-                   Margin="77,50,0,0" 
+                   Margin="77,29,0,0" 
                    TextWrapping="Wrap" 
                    VerticalAlignment="Top" Height="20"
         />
 
 
 
-        <Grid Margin="169,167,338,217"/>
-        <TextBlock HorizontalAlignment="Left" Margin="77,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
-        <DataGrid x:Name="DataTable" Margin="77,122,95,134">
-            <DataGrid.Items>
-            </DataGrid.Items>
-            <DataGrid.Columns >
+        <Grid Margin="169,167,77,217"/>
+        <TextBlock HorizontalAlignment="Left" Margin="77,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
+
+        <DataGrid  x:Name="DataTable" Margin="77,93,95,134" AutoGenerateColumns="False" CanUserResizeColumns="True" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="MovieTitle" Binding="{Binding MovieTitle}"/>
+                <DataGridTextColumn Header="Director" Binding="{Binding Director}"/>
+                <DataGridTextColumn Header="Lead Actor" Binding="{Binding LeadActor}"/>
+                <DataGridTextColumn Header="Release year" Binding="{Binding Year}"/>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="EditBtn" Height="20" Width="50" Click="EditBtn_Click">Edit</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="DeleteBtn" Height="20" Width="50" Click="DeleteBtn_Click">Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
 
-        <TextBlock HorizontalAlignment="Left" Margin="69,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
-        <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="206,347,0,0" VerticalAlignment="Top" Width="256"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="82,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
+        <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="179,369,0,0" VerticalAlignment="Top" Width="212" Height="32"/>
+        <Button x:Name="ButtonDelete"
+            FontSize="10"
+            Content="Delete" Margin="16,371,95,76"
+                 Height="30" Grid.Column="1"
+        />
+        <Button x:Name="ButtonEdit"
+            FontSize="10"
+            Content="Edit" Margin="400,371,250,76"
+            Height="30" Grid.ColumnSpan="2"
+        />
 
     </Grid>
 </Window>

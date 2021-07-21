@@ -28,7 +28,7 @@ namespace Cinemateka
         public MainWindow()
         {
             InitializeComponent();
-            using (var db = new ShitAssContext())
+            /*using (var db = new ShitAssContext())
             {
                 db.TableCinematekas.Add(new TableCinemateka
                 {
@@ -39,7 +39,7 @@ namespace Cinemateka
 
                 });
                 db.SaveChanges();
-            }
+            }*/
             //DBConnect();
         }
 
@@ -65,8 +65,11 @@ namespace Cinemateka
             
         }
 
+
         private void Button_Search_Click(object sender, RoutedEventArgs e)
         {
+           
+
             var argument = Input_SearchBar.Text;
             if (argument == "")
             {
@@ -94,8 +97,7 @@ namespace Cinemateka
                 label_progress.Content = result.GetString("movie_title");
                 result.Close();*/
                 List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
-                var btn = new Button();
-               //var c = new IEnumerable<(string, Button, Button)>();
+                
                 using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
@@ -104,10 +106,11 @@ namespace Cinemateka
                         {
                             label_progress.Content = movie.MovieTitle;
                             shitAsscinemateka.Add(movie);
-                           
                         }
                     }
-					DataTable.ItemsSource = shitAsscinemateka;
+                    
+                    DataTable.ItemsSource = shitAsscinemateka;
+
                 }
             }  
         }
@@ -124,6 +127,39 @@ namespace Cinemateka
             result = query.ExecuteReader();
     
             return result;
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var cell = DataTable.CurrentCell;
+            var row = DataTable.CurrentColumn;
+            var w = cell.Column;
+            // DataTable.Columns[w];
+            //var par = GetParent(cell.Column, typeof(DataGridTemplateColumn));
+            //label_progress.Content = par;
+            var f = 5;
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private FrameworkElement GetParent(FrameworkElement child, Type targetType)
+        {
+            object parent = child.Parent;
+            if (parent != null)
+            {
+                if (parent.GetType() == targetType)
+                {
+                    return (FrameworkElement)parent;
+                }
+                else
+                {
+                    return GetParent((FrameworkElement)parent, targetType);
+                }
+            }
+            return null;
         }
     }
 }
