@@ -24,6 +24,7 @@ namespace Cinemateka
     {
         const string connection = "Server=mysql60.hostland.ru;Database=host1323541_vrn05;Uid=host1323541_itstep;Pwd=269f43dc;";
         private MySqlConnection db;
+
         
         public MainWindow()
         {
@@ -131,13 +132,12 @@ namespace Cinemateka
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            var cell = DataTable.CurrentCell;
-            var row = DataTable.CurrentColumn;
-            var w = cell.Column;
-            // DataTable.Columns[w];
-            //var par = GetParent(cell.Column, typeof(DataGridTemplateColumn));
-            //label_progress.Content = par;
-            var f = 5;
+            //TableCinemateka cell = ((FrameworkElement)sender).DataContext as TableCinemateka;
+            var parent = ((FrameworkElement)sender);
+            var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
+            var cells = DataTable.Columns;
+            var cell = cells.ElementAt(index);
+            DataTable.Columns.Remove(cell);
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)

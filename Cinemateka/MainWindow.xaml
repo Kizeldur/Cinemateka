@@ -37,13 +37,13 @@
         <Grid Margin="169,167,77,217"/>
         <TextBlock HorizontalAlignment="Left" Margin="77,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
 
-        <DataGrid  x:Name="DataTable" Margin="77,93,95,134" AutoGenerateColumns="False" CanUserResizeColumns="True" Grid.ColumnSpan="2">
-            <DataGrid.Columns>
+        <DataGrid x:Name="DataTable" Margin="77,93,95,134" AutoGenerateColumns="False" CanUserResizeColumns="True" Grid.ColumnSpan="2">
+            <DataGrid.Columns >
                 <DataGridTextColumn Header="MovieTitle" Binding="{Binding MovieTitle}"/>
                 <DataGridTextColumn Header="Director" Binding="{Binding Director}"/>
                 <DataGridTextColumn Header="Lead Actor" Binding="{Binding LeadActor}"/>
                 <DataGridTextColumn Header="Release year" Binding="{Binding Year}"/>
-                <DataGridTemplateColumn >
+                <DataGridTemplateColumn  IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="EditBtn" Height="20" Width="50" Click="EditBtn_Click">Edit</Button>
@@ -58,7 +58,13 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-
+            
+            
+            <DataGrid.RowDetailsTemplate >
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
 
 
