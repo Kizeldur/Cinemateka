@@ -24,8 +24,8 @@ namespace Cinemateka
     {
         const string connection = "Server=mysql60.hostland.ru;Database=host1323541_vrn05;Uid=host1323541_itstep;Pwd=269f43dc;";
         private MySqlConnection db;
+        //List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
 
-        
         public MainWindow()
         {
             InitializeComponent();
@@ -111,8 +111,10 @@ namespace Cinemateka
                     }
                     
                     DataTable.ItemsSource = shitAsscinemateka;
-
+                  
+                            
                 }
+
             }  
         }
         
@@ -132,34 +134,78 @@ namespace Cinemateka
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TableCinemateka cell = ((FrameworkElement)sender).DataContext as TableCinemateka;
-            var parent = ((FrameworkElement)sender);
-            var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
-            var cells = DataTable.Columns;
-            var cell = cells.ElementAt(index);
-            DataTable.Columns.Remove(cell);
+           
+            
+            // Current Solution
+            TableCinemateka row = ((FrameworkElement)sender).DataContext as TableCinemateka;
+            using (var db = new ShitAssContext())
+            {
+                db.TableCinematekas.Remove(row);
+                db.SaveChanges();
+            }
+            ShowCinematekaList();
+
+            //Alternate Solution
+            /*var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
+            DataTable.Items.RemoveAt(index);
+            ShowCinematekaList();*/
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
+            TableCinemateka row = ((FrameworkElement)sender).DataContext as TableCinemateka;
+            using (var db = new ShitAssContext())
+            {
+                var h = db.TableCinematekas.ToList();
+                //db.SaveChanges();
+                var k = 456;
+            }
         }
 
-        private FrameworkElement GetParent(FrameworkElement child, Type targetType)
+        private string GiveMeSearcgArgument()
         {
-            object parent = child.Parent;
-            if (parent != null)
+            return Input_SearchBar.Text;
+        }
+
+        private void ShowCinematekaList()
+        {
+            var argument = Input_SearchBar.Text;
+            List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
+
+            using (var db = new ShitAssContext())
             {
-                if (parent.GetType() == targetType)
+                foreach (var movie in db.TableCinematekas)
                 {
-                    return (FrameworkElement)parent;
+                    if (argument == movie.MovieTitle || argument == movie.Director || argument == movie.LeadActor)
+                    {
+                        label_progress.Content = movie.MovieTitle;
+                        shitAsscinemateka.Add(movie);
+                    }
                 }
-                else
-                {
-                    return GetParent((FrameworkElement)parent, targetType);
-                }
+
+                DataTable.ItemsSource = shitAsscinemateka;
+
+
             }
-            return null;
+        }
+
+        private void ButtonShowAll_Click(object sender, RoutedEventArgs e)
+        {
+            List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
+
+            using (var db = new ShitAssContext())
+            {
+                foreach (var movie in db.TableCinematekas)
+                {
+                        label_progress.Content = movie.MovieTitle;
+                        shitAsscinemateka.Add(movie);
+                }
+
+                DataTable.ItemsSource = shitAsscinemateka;
+
+
+            }
         }
     }
 }

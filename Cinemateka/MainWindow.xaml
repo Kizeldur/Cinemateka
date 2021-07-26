@@ -36,7 +36,7 @@
 
         <Grid Margin="169,167,77,217"/>
         <TextBlock HorizontalAlignment="Left" Margin="77,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
-
+        
         <DataGrid x:Name="DataTable" Margin="77,93,95,134" AutoGenerateColumns="False" CanUserResizeColumns="True" Grid.ColumnSpan="2">
             <DataGrid.Columns >
                 <DataGridTextColumn Header="MovieTitle" Binding="{Binding MovieTitle}"/>
@@ -58,15 +58,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            
-            
-            <DataGrid.RowDetailsTemplate >
-                <DataTemplate>
-                    
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
         </DataGrid>
+        
 
+    
 
         <TextBlock HorizontalAlignment="Left" Margin="82,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
         <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Left" Margin="179,369,0,0" VerticalAlignment="Top" Width="212" Height="32"/>
@@ -75,10 +70,11 @@
             Content="Delete" Margin="16,371,95,76"
                  Height="30" Grid.Column="1"
         />
-        <Button x:Name="ButtonEdit"
+        <Button x:Name="ButtonShowAll"
             FontSize="10"
-            Content="Edit" Margin="400,371,250,76"
+            Content="Show All" Margin="400,371,250,76"
             Height="30" Grid.ColumnSpan="2"
+            Click="ButtonShowAll_Click"
         />
 
     </Grid>
