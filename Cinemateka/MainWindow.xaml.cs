@@ -133,9 +133,7 @@ namespace Cinemateka
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-           
-            
+        {           
             // Current Solution
             TableCinemateka row = ((FrameworkElement)sender).DataContext as TableCinemateka;
             using (var db = new ShitAssContext())
@@ -153,13 +151,29 @@ namespace Cinemateka
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
+            //var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
             TableCinemateka row = ((FrameworkElement)sender).DataContext as TableCinemateka;
+           
             using (var db = new ShitAssContext())
             {
                 var h = db.TableCinematekas.ToList();
-                //db.SaveChanges();
-                var k = 456;
+                //DataGrid.
+                foreach (var el in db.TableCinematekas.ToList())
+                {
+                    if (el.Id == row.Id)
+                    {
+                        el.Director = row.Director;
+                        //el.Director = "Spielberg";
+                        el.MovieTitle = row.MovieTitle;
+                        el.LeadActor = row.LeadActor;
+                        el.Year = row.Year;
+                    }
+                }
+
+                var row_2 = 
+
+                db.SaveChanges();
+                ShowCinematekaList();
             }
         }
 
@@ -185,26 +199,14 @@ namespace Cinemateka
                 }
 
                 DataTable.ItemsSource = shitAsscinemateka;
-
-
             }
         }
 
         private void ButtonShowAll_Click(object sender, RoutedEventArgs e)
         {
-            List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
-
             using (var db = new ShitAssContext())
             {
-                foreach (var movie in db.TableCinematekas)
-                {
-                        label_progress.Content = movie.MovieTitle;
-                        shitAsscinemateka.Add(movie);
-                }
-
-                DataTable.ItemsSource = shitAsscinemateka;
-
-
+                DataTable.ItemsSource = db.TableCinematekas.ToList();
             }
         }
     }
