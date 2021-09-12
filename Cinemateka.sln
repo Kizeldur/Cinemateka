@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemateka", "Cinemateka\Cinemateka.csproj", "{88EB9EC4-CA46-4388-80C6-9BDE45D9ACF2}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinemateka", "Cinemateka\Cinemateka.csproj", "{88EB9EC4-CA46-4388-80C6-9BDE45D9ACF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinopoiskAPI", "KinopoiskAPI\KinopoiskAPI.csproj", "{00C10CF0-ACF6-4171-96E1-26D25CBC1312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,15 @@ Global
 		{88EB9EC4-CA46-4388-80C6-9BDE45D9ACF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88EB9EC4-CA46-4388-80C6-9BDE45D9ACF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88EB9EC4-CA46-4388-80C6-9BDE45D9ACF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00C10CF0-ACF6-4171-96E1-26D25CBC1312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C10CF0-ACF6-4171-96E1-26D25CBC1312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C10CF0-ACF6-4171-96E1-26D25CBC1312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C10CF0-ACF6-4171-96E1-26D25CBC1312}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B85CE3F1-9B63-477D-BC2B-AFC5B15C26C8}
 	EndGlobalSection
 EndGlobal

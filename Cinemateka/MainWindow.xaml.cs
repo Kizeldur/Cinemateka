@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using KinopoiskAPI;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Cinemateka
 {
@@ -24,7 +27,6 @@ namespace Cinemateka
     {
         const string connection = "Server=mysql60.hostland.ru;Database=host1323541_vrn05;Uid=host1323541_itstep;Pwd=269f43dc;";
         private MySqlConnection db;
-        //List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
 
         public MainWindow()
         {
@@ -66,10 +68,9 @@ namespace Cinemateka
             
         }
 
-
-        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        /*private void Button_Search_Click(object sender, RoutedEventArgs e)
         {
-           
+
 
             var argument = Input_SearchBar.Text;
             if (argument == "")
@@ -78,7 +79,7 @@ namespace Cinemateka
             }
             else
             {
-                /*try
+                try
                 {
                     var resulte = ExecuteCommand(argument);
                     resulte.Read();
@@ -96,10 +97,33 @@ namespace Cinemateka
                 var result = ExecuteCommand(argument);
                 result.Read();
                 label_progress.Content = result.GetString("movie_title");
-                result.Close();*/
+                result.Close();
                 List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
-                
-                using (var db = new ShitAssContext())
+            }
+        }*/
+
+
+        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        {
+           
+
+            var argument = Input_SearchBar.Text;
+            if (argument == "")
+            {
+                label_progress.Content = "Пожалуйста, введите аргументы поиска";
+            }
+            else
+            {
+                //List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
+                List<Movie> shitAsscinemateka = new List<Movie>();
+
+                var url = KinipoiskApi.GetKinopoiskUrl(argument);
+                var json = KinipoiskApi.GetKinopoiskData(url);
+                //var movie = JsonConvert.DeserializeObject<Movie>(json);
+                Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
+                //shitAsscinemateka.Add(movie);
+                DataTable.ItemsSource = shitAsscinemateka;
+                /*using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
                     {
@@ -113,7 +137,7 @@ namespace Cinemateka
                     DataTable.ItemsSource = shitAsscinemateka;
                   
                             
-                }
+                }*/
 
             }  
         }

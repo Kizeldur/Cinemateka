@@ -12,8 +12,8 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="Input_SearchBar" 
-                 HorizontalAlignment="Center" 
-                 Margin="0,29,0,0"
+                 HorizontalAlignment="Left" 
+                 Margin="262,29,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Width="202"
@@ -21,7 +21,7 @@
         />
         <Button x:Name="Button_Search" Content="Поиск" 
                 HorizontalAlignment="Left" 
-                Margin="400,29,0,0" 
+                Margin="478,29,0,0" 
                 VerticalAlignment="Top"
                 Click="Button_Search_Click" RenderTransformOrigin="0.465,0.536" Height="20" Width="38"        
         />
@@ -61,7 +61,7 @@
             </DataGrid.Columns>
         </DataGrid>
             -->
-
+        <!--
         <StackPanel  Margin="77,93,50,134">
             <ListBox x:Name="DataTable"
                  FontSize="16"
@@ -80,17 +80,39 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+        -->
+
+        <StackPanel  Margin="77,93,50,134">
+            <ListBox x:Name="DataTable"
+                 FontSize="16"
+                 Foreground="Brown" Height="230">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Id, Mode=TwoWay}" Height="30" Width="90"></TextBox>
+                            <TextBox Text="{Binding Title, Mode=TwoWay}" Height="30" Width="90"></TextBox>
+                            <TextBox Text="{Binding Title_Alternative, Mode=TwoWay}" Height="30" Width="90"></TextBox>
+                            <TextBox Text="{Binding Directors, Mode=TwoWay}" Width="100"></TextBox>
+                            <Button x:Name="EditBtn" Height="30" Width="80" Click="EditBtn_Click">Edit</Button>
+                            <Button x:Name="DeleteBtn" Height="30" Width="80" Click="DeleteBtn_Click">Delete</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
 
 
         <TextBlock HorizontalAlignment="Left" Margin="82,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="52"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
         <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Center" Margin="0,369,0,0" VerticalAlignment="Top" Width="212" Height="32"/>
         <Button x:Name="ButtonDelete"
+            Height="30"    
             FontSize="10"
-            Content="Delete" Margin="534,371,90,76"
+            Content="Delete" Margin="534,350,90,97"
         />
         <Button x:Name="ButtonShowAll"
+            Height="30"
             FontSize="10"
-            Content="Show All" Margin="400,371,215,76"
+            Content="Show All" Margin="387,350,228,97"
             Click="ButtonShowAll_Click"
         />
 
