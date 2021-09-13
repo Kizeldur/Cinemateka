@@ -92,7 +92,9 @@
                             <TextBox Text="{Binding Id, Mode=TwoWay}" Height="30" Width="90"></TextBox>
                             <TextBox Text="{Binding Title, Mode=TwoWay}" Height="30" Width="90"></TextBox>
                             <TextBox Text="{Binding Title_Alternative, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                            <TextBox Text="{Binding Directors, Mode=TwoWay}" Width="100"></TextBox>
+                            <TextBox Text="{Binding Year, Mode=TwoWay}" Width="100"></TextBox>
+                            <TextBox Text="{Binding Trailer, Mode=TwoWay}" Width="100"></TextBox>
+                            <TextBox Text="{Binding Actors, Mode=TwoWay}" Width="100"></TextBox>
                             <Button x:Name="EditBtn" Height="30" Width="80" Click="EditBtn_Click">Edit</Button>
                             <Button x:Name="DeleteBtn" Height="30" Width="80" Click="DeleteBtn_Click">Delete</Button>
                         </StackPanel>

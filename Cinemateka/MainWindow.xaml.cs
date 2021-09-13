@@ -119,9 +119,9 @@ namespace Cinemateka
 
                 var url = KinipoiskApi.GetKinopoiskUrl(argument);
                 var json = KinipoiskApi.GetKinopoiskData(url);
-                //var movie = JsonConvert.DeserializeObject<Movie>(json);
-                Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
-                //shitAsscinemateka.Add(movie);
+                var movie = JsonConvert.DeserializeObject<Movie>(json);
+                //Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
+                shitAsscinemateka.Add(movie);
                 DataTable.ItemsSource = shitAsscinemateka;
                 /*using (var db = new ShitAssContext())
                 {
