@@ -126,11 +126,13 @@ namespace Cinemateka
                 shitAsscinemateka.Add(movie);
                 DataTable.ItemsSource = shitAsscinemateka;
                 //image_Poster.Source = new BitmapImage(new Uri(movie.Poster, UriKind.Relative));
-                var image = new BitmapImage();
-                image.BeginInit();
                 var path = "https:" + movie.Poster;
-                image.UriSource = new Uri(path, UriKind.Absolute);
-                poster.Source = image;
+                var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+                label_Title.Content = movie.Title;
+                label_OriginalTitle.Content = movie.Title_Alternative;
+                label_Director.Content = movie.Directors;
+                label_Description.Content = movie.Description;
+                image_Poster.Source = image;
                 /*using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
@@ -240,6 +242,11 @@ namespace Cinemateka
             {
                 DataTable.ItemsSource = db.TableCinematekas.ToList();
             }
+        }
+
+        private void btn_SaveInDB_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
