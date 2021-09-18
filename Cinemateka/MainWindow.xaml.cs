@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using KinopoiskAPI;
 using Newtonsoft.Json;
 using System.IO;
+using System.Drawing;
+
 
 namespace Cinemateka
 {
@@ -123,6 +125,12 @@ namespace Cinemateka
                 //Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
                 shitAsscinemateka.Add(movie);
                 DataTable.ItemsSource = shitAsscinemateka;
+                //image_Poster.Source = new BitmapImage(new Uri(movie.Poster, UriKind.Relative));
+                var image = new BitmapImage();
+                image.BeginInit();
+                var path = "https:" + movie.Poster;
+                image.UriSource = new Uri(path, UriKind.Absolute);
+                poster.Source = image;
                 /*using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
