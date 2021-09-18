@@ -54,13 +54,13 @@ namespace Cinemateka
             db.Open();
             if (db.Ping())
             {
-                //label_progress.Foreground = Brushes.Blue;
-                //label_progress.Content = "Connection is approved";
+                label_progress.Foreground = Brushes.Blue;
+                label_progress.Content = "Connection is approved";
             }
             else
             {
-                //label_progress.Foreground = Brushes.Firebrick;
-                //label_progress.Content = "Connection is disapproved";
+                label_progress.Foreground = Brushes.Firebrick;
+                label_progress.Content = "Connection is disapproved";
             }
         }
 
@@ -107,13 +107,12 @@ namespace Cinemateka
 
         private void Button_Search_Click(object sender, RoutedEventArgs e)
         {
+           
 
-
-            //var argument = Input_SearchBar.Text;
-            var argument = "Jaws";
+            var argument = Input_SearchBar.Text;
             if (argument == "")
             {
-                //label_progress.Content = "Пожалуйста, введите аргументы поиска";
+                label_progress.Content = "Пожалуйста, введите аргументы поиска";
             }
             else
             {
@@ -125,13 +124,15 @@ namespace Cinemateka
                 var movie = JsonConvert.DeserializeObject<Movie>(json);
                 //Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
                 shitAsscinemateka.Add(movie);
-                //DataTable.ItemsSource = shitAsscinemateka;
+                DataTable.ItemsSource = shitAsscinemateka;
                 //image_Poster.Source = new BitmapImage(new Uri(movie.Poster, UriKind.Relative));
-                var image = new BitmapImage();
-                image.BeginInit();
                 var path = "https:" + movie.Poster;
-                image.UriSource = new Uri(path, UriKind.Absolute);
-                poster.Source = image;
+                var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+                label_Title.Content = movie.Title;
+                label_OriginalTitle.Content = movie.Title_Alternative;
+                label_Director.Content = movie.Directors;
+                label_Description.Content = movie.Description;
+                image_Poster.Source = image;
                 /*using (var db = new ShitAssContext())
                 {
                     foreach (var movie in db.TableCinematekas)
@@ -174,14 +175,14 @@ namespace Cinemateka
                 db.TableCinematekas.Remove(row);
                 db.SaveChanges();
             }
-            //ShowCinematekaList();
+            ShowCinematekaList();
 
             //Alternate Solution
             /*var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
             DataTable.Items.RemoveAt(index);
             ShowCinematekaList();*/
         }
-        /*
+
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             //var index = DataTable.Items.IndexOf(DataTable.CurrentItem);
@@ -241,6 +242,11 @@ namespace Cinemateka
             {
                 DataTable.ItemsSource = db.TableCinematekas.ToList();
             }
-        }*/
+        }
+
+        private void btn_SaveInDB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
