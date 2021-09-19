@@ -105,14 +105,14 @@ namespace Cinemateka
         }*/
 
 
-        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        private void Button_SearchKinopoisk_Click(object sender, RoutedEventArgs e)
         {
            
 
-            var argument = Input_SearchBar.Text;
+            var argument = Input_SearchKinopoisk.Text;
             if (argument == "")
             {
-                label_progress.Content = "Пожалуйста, введите аргументы поиска";
+                Input_SearchKinopoisk.Text = "Пожалуйста, введите аргументы поиска";
             }
             else
             {
@@ -122,16 +122,11 @@ namespace Cinemateka
                 var url = KinipoiskApi.GetKinopoiskUrl(argument);
                 var json = KinipoiskApi.GetKinopoiskData(url);
                 var movie = JsonConvert.DeserializeObject<Movie>(json);
-                //Movie movie1 = JsonConvert.DeserializeObject<Movie>(File.ReadAllText(@"d:\movie.json"));
                 shitAsscinemateka.Add(movie);
                 DataTable.ItemsSource = shitAsscinemateka;
-                //image_Poster.Source = new BitmapImage(new Uri(movie.Poster, UriKind.Relative));
                 var path = "https:" + movie.Poster;
                 var image = new BitmapImage(new Uri(path, UriKind.Absolute));
-                label_Title.Content = movie.Title;
-                label_OriginalTitle.Content = movie.Title_Alternative;
-                label_Director.Content = movie.Directors;
-                label_Description.Content = movie.Description;
+                ShowMovie(movie);
                 image_Poster.Source = image;
                 /*using (var db = new ShitAssContext())
                 {
@@ -149,7 +144,7 @@ namespace Cinemateka
                             
                 }*/
 
-            }  
+            }
         }
         
         private MySqlDataReader ExecuteCommand(string argument)
@@ -211,14 +206,9 @@ namespace Cinemateka
             }
         }
 
-        private string GiveMeSearcgArgument()
-        {
-            return Input_SearchBar.Text;
-        }
-
         private void ShowCinematekaList()
         {
-            var argument = Input_SearchBar.Text;
+            var argument = Input_SearchDB.Text;
             List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
 
             using (var db = new ShitAssContext())
@@ -247,6 +237,57 @@ namespace Cinemateka
         private void btn_SaveInDB_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ShowMovie(Movie movie)
+        {
+            label_Title.Content = movie.Title;
+            label_OriginalTitle.Content = movie.Title_Alternative;
+            label_Director.Content = movie.Directors;
+            label_Actors.Content = movie.Actors;
+            label_Description.Content = movie.Description;
+            label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
+            label_IMDbRating.Content = movie.Rating_Kinopoisk;
+        }
+
+        private void Button_SearchDB_Click(object sender, RoutedEventArgs e)
+        {
+            var argument = Input_SearchDB.Text;
+            if (argument == "")
+            {
+                label_progress.Content = "Пожалуйста, введите аргументы поиска";
+            }
+            else
+            {
+                //List<TableCinemateka> shitAsscinemateka = new List<TableCinemateka>();
+                List<Movie> shitAsscinemateka = new List<Movie>();
+
+                var url = KinipoiskApi.GetKinopoiskUrl(argument);
+                var json = KinipoiskApi.GetKinopoiskData(url);
+                var movie = JsonConvert.DeserializeObject<Movie>(json);
+                shitAsscinemateka.Add(movie);
+                DataTable.ItemsSource = shitAsscinemateka;
+                var path = "https:" + movie.Poster;
+                var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+                ShowMovie(movie);
+                image_Poster.Source = image;
+                /*using (var db = new ShitAssContext())
+                {
+                    foreach (var movie in db.TableCinematekas)
+                    {
+                        if (argument == movie.MovieTitle || argument == movie.Director || argument == movie.LeadActor)
+                        {
+                            label_progress.Content = movie.MovieTitle;
+                            shitAsscinemateka.Add(movie);
+                        }
+                    }
+                    
+                    DataTable.ItemsSource = shitAsscinemateka;
+                  
+                            
+                }*/
+
+            }
         }
     }
 }

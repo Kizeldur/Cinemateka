@@ -14,32 +14,31 @@
                            Source="https://st4.depositphotos.com/17828278/24401/v/600/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available.jpg" 
                            HorizontalAlignment="Left" 
                            Height="198" 
-                           Margin="528,63,0,0" 
+                           Margin="26,46,0,0" 
                            VerticalAlignment="Top"
-                           
                            Width="220"/>
                     <Label x:Name="label_Title"
                         Content="None" 
                            HorizontalAlignment="Left" 
-                           Margin="62,30,0,0" 
+                           Margin="364,46,0,0" 
                            VerticalAlignment="Top" 
                            Width="201"/>
                     <Label x:Name="label_OriginalTitle"
                         Content="None" 
                            HorizontalAlignment="Left" 
-                           Margin="62,63,0,0" 
+                           Margin="364,79,0,0" 
                            VerticalAlignment="Top" 
                            Width="147"/>
                     <Label x:Name="label_Description"
                         Content="None" 
                            HorizontalAlignment="Left" 
-                           Margin="62,150,0,0" 
+                           Margin="192,243,0,0" 
                            VerticalAlignment="Top" 
-                           Width="335" Height="211"/>
+                           Width="538" Height="137"/>
                     <Button x:Name="btn_SaveInDB" 
                             Content="Сохр. в БД" 
                             HorizontalAlignment="Left" 
-                            Margin="560,277,0,0" 
+                            Margin="635,59,0,0" 
                             VerticalAlignment="Top" 
                             Width="99" Height="33"
                             Click="btn_SaveInDB_Click"/>
@@ -47,116 +46,157 @@
                         x:Name="label_Director"
                         Content="None" 
                         HorizontalAlignment="Left" 
-                        Margin="62,112,0,0" 
-                        VerticalAlignment="Top" Width="100"/>
+                        Margin="388,164,0,0" 
+                        VerticalAlignment="Top" Width="103"/>
+                    <Label Content="О фильме" 
+                        HorizontalAlignment="Left" 
+                        Margin="364,121,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="127"/>
+                    <Label Content="Режиссер" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="270,164,0,0" 
+                        Width="113"/>
+                    <Label Content="Актеры" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="270,202,0,0" 
+                        Width="113"/>
+                    <Label x:Name="label_Actors" 
+                        Content="None" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="388,202,0,0" 
+                        Height="26" Width="103"/>
+                    <Label Content="Kinopoisk" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="619,145,0,0" 
+                        Width="65"/>
+                    <Label x:Name="label_KinopoiskRating" 
+                        Content="None" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="689,145,0,0" 
+                        Width="43"/>
+                    <Label Content="IMDb" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="619,176,0,0" 
+                        Width="65" Height="25"/>
+                    <Label x:Name="label_IMDbRating" 
+                        Content="None" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="689,177,0,0" 
+                        Width="43"/>
+                    <Label Content="Рейтинг фильма" 
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Top" 
+                           Margin="619,108,0,0"
+                           Width="113"/>
+                    <TextBox x:Name="Input_SearchKinopoisk" 
+                        HorizontalAlignment="Left" 
+                        Margin="161,10,0,0"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top"
+                        Width="300" Height="20"
+                        RenderTransformOrigin="0.516,0.625"/>
+                    <Button x:Name="Button_SearchKinopoisk" 
+                        Content="Поиск" 
+                        HorizontalAlignment="Left" 
+                        Margin="475,10,0,0" 
+                        VerticalAlignment="Top"
+                        Click="Button_SearchKinopoisk_Click" 
+                        RenderTransformOrigin="0.465,0.536" 
+                        Height="20" Width="38"/>
+                    <TextBlock Text="Поиск" 
+                        HorizontalAlignment="Left" 
+                        Margin="74,10,0,0" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" Height="20" Width="87"/>
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="Input_SearchBar" 
-                 HorizontalAlignment="Left" 
-                 Margin="262,29,0,0"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 Width="202"
-                 RenderTransformOrigin="0.516,0.625" Height="20"
-        />
-                    <Button x:Name="Button_Search" Content="Поиск" 
-                HorizontalAlignment="Left" 
-                Margin="478,29,0,0" 
-                VerticalAlignment="Top"
-                Click="Button_Search_Click" RenderTransformOrigin="0.465,0.536" Height="20" Width="38"        
-        />
+                    <TextBox x:Name="Input_SearchDB" 
+                        HorizontalAlignment="Left" 
+                        Margin="200,29,0,0"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top"
+                        Width="264" Height="20"
+                        RenderTransformOrigin="0.516,0.625"/>
+                    <Button x:Name="Button_SearchDB" Content="Поиск" 
+                        HorizontalAlignment="Left" 
+                        Margin="478,29,0,0" 
+                        VerticalAlignment="Top"
+                        Click="Button_SearchDB_Click" 
+                        RenderTransformOrigin="0.465,0.536" 
+                        Height="20" Width="38"/>
                     <TextBlock Text="Поиск фильмов" 
-                   HorizontalAlignment="Left" 
-                   Margin="77,29,0,0" 
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top" Height="20" Width="87"
-        />
-
-                    <TextBlock HorizontalAlignment="Left" Margin="77,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="94"><Run Language="ru-ru" Text="Результат поиска"/></TextBlock>
-                    <!--        
-        <DataGrid x:Name="DataTable" Margin="77,93,95,134" AutoGenerateColumns="False" CanUserResizeColumns="True" Grid.ColumnSpan="2">
-            <DataGrid.Columns >
-                <DataGridTextColumn Header="MovieTitle" Binding="{Binding MovieTitle, Mode=TwoWay}" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Director" Binding="{Binding Director, Mode=TwoWay}" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Lead Actor" Binding="{Binding LeadActor, Mode=TwoWay}" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Release year" Binding="{Binding Year, Mode=TwoWay}" IsReadOnly="False"/>
-                <DataGridTextColumn Header="SomeData" IsReadOnly="False"/>
-                <DataGridTemplateColumn  IsReadOnly="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="EditBtn" Height="20" Width="50" Click="EditBtn_Click">Edit</Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="DeleteBtn" Height="20" Width="50" Click="DeleteBtn_Click">Delete</Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-            -->
-                    <!--
-        <StackPanel  Margin="77,93,50,134">
-            <ListBox x:Name="DataTable"
-                 FontSize="16"
-                 Foreground="Brown" Height="230">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding MovieTitle, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                            <TextBox Text="{Binding Director, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                            <TextBox Text="{Binding LeadActor, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                            <TextBox Text="{Binding Year, Mode=TwoWay}" Width="100"></TextBox>
-                            <Button x:Name="EditBtn" Height="30" Width="80" Click="EditBtn_Click">Edit</Button>
-                            <Button x:Name="DeleteBtn" Height="30" Width="80" Click="DeleteBtn_Click">Delete</Button>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        -->
-
+                        HorizontalAlignment="Left" 
+                        Margin="77,29,0,0" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" Height="20" Width="87"/>
+                    <TextBlock HorizontalAlignment="Left"
+                        Text="Результат поиска"
+                        Margin="77,72,0,0" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" 
+                        Height="16" 
+                        Width="94"/>
                     <StackPanel  Margin="77,93,50,134">
                         <ListBox x:Name="DataTable"
-                 FontSize="16"
-                 Foreground="Brown" Height="230">
+                            FontSize="16"
+                            Foreground="Brown" 
+                            Height="230">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox Text="{Binding Id, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                                        <TextBox Text="{Binding Title, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                                        <TextBox Text="{Binding Title_Alternative, Mode=TwoWay}" Height="30" Width="90"></TextBox>
-                                        <TextBox Text="{Binding Year, Mode=TwoWay}" Width="100"></TextBox>
-                                        <TextBox Text="{Binding Trailer, Mode=TwoWay}" Width="100"></TextBox>
-                                        <TextBox Text="{Binding Actors[0], Mode=TwoWay}" Width="100"></TextBox>
-                                        <Button x:Name="EditBtn" Height="30" Width="80" Click="EditBtn_Click">Edit</Button>
-                                        <Button x:Name="DeleteBtn" Height="30" Width="80" Click="DeleteBtn_Click">Delete</Button>
+                                        <TextBox Text="{Binding Id, Mode=TwoWay}" 
+                                                 Height="30" Width="90"/>
+                                        <TextBox Text="{Binding Title, Mode=TwoWay}" 
+                                                 Height="30" Width="90"/>
+                                        <TextBox Text="{Binding Title_Alternative, Mode=TwoWay}" 
+                                                 Height="30" Width="90"/>
+                                        <TextBox Text="{Binding Year, Mode=TwoWay}" 
+                                                 Height="30" Width="100"/>
+                                        <Button x:Name="EditBtn"
+                                                Content="Ред."
+                                                Height="30" Width="80" 
+                                                Click="EditBtn_Click"/>
+                                        <Button x:Name="DeleteBtn"
+                                                Content="Уд."
+                                                Height="30" Width="80" 
+                                                Click="DeleteBtn_Click"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="82,371,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="52"><Run Language="ru-ru" Text="Прогресс"/></TextBlock>
-                    <Label x:Name="label_progress" Content="Label" HorizontalAlignment="Center" Margin="0,369,0,0" VerticalAlignment="Top" Width="212" Height="32"/>
+                    <TextBlock HorizontalAlignment="Left"
+                        Text="Прогресс"
+                        VerticalAlignment="Top" 
+                        Margin="82,371,0,0" 
+                        TextWrapping="Wrap"/>
+                    <Label x:Name="label_progress" 
+                        Content="Label" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        Margin="0,369,0,0" 
+                        Width="212" Height="32"/>
                     <Button x:Name="ButtonDelete"    
-            FontSize="10"
-            Content="Delete" Margin="534,350,90,69"
-        />
+                        FontSize="10"
+                        Content="Delete" 
+                        Margin="534,350,90,69"/>
                     <Button x:Name="ButtonShowAll"
-            FontSize="10"
-            Content="Show All" Margin="387,350,228,69"
-            Click="ButtonShowAll_Click"
-        />
-
+                        FontSize="10"
+                        Content="Show All" Margin="387,350,228,69"
+                        Click="ButtonShowAll_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </Window>
