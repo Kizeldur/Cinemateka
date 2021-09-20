@@ -17,6 +17,7 @@ namespace Cinemateka
         {
         }
 
+        public virtual DbSet<CinematekaTable> CinematekaTables { get; set; }
         public virtual DbSet<TableCinemateka> TableCinematekas { get; set; }
         public virtual DbSet<TableUser> TableUsers { get; set; }
 
@@ -33,6 +34,23 @@ namespace Cinemateka
         {
             modelBuilder.HasCharSet("utf8")
                 .UseCollation("utf8_general_ci");
+
+            modelBuilder.Entity<CinematekaTable>(entity =>
+            {
+                entity.ToTable("cinemateka_table");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id");
+
+                entity.Property(e => e.KpId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("KP_ID");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnType("text");
+            });
 
             modelBuilder.Entity<TableCinemateka>(entity =>
             {
