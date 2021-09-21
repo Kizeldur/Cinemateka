@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using KinopoiskAPI;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace Cinemateka
 {
@@ -29,6 +30,7 @@ namespace Cinemateka
         public MainWindow()
         {
             InitializeComponent();
+            using var db = new ShitAssContext();
         }
 
         private void Button_SearchKinopoisk_Click(object sender, RoutedEventArgs e)
@@ -41,18 +43,12 @@ namespace Cinemateka
             else
             {
                 List<Movie> shitAsscinemateka = new List<Movie>();
-                var url = KinipoiskApi.GetKinopoiskUrl(argument);
-                var json = KinipoiskApi.GetKinopoiskData(url);
-                var movie = JsonConvert.DeserializeObject<Movie>(json);
+                var movie = KinopoiskApi.GetMovieByTheTitle(argument);
                 shitAsscinemateka.Add(movie);
                 DataTable.ItemsSource = shitAsscinemateka;
-                var path = "https:" + movie.Poster;
-                var image = new BitmapImage(new Uri(path, UriKind.Absolute));
                 ShowMovie(movie);
-                image_Poster.Source = image;
             }
         }
-
 
         private void Button_SearchDB_Click(object sender, RoutedEventArgs e)
         {
@@ -75,7 +71,7 @@ namespace Cinemateka
                             shitAsscinemateka.Add(movie);
                         }
                     } 
-                    DataTable.ItemsSource = shitAsscinemateka;         
+                    DataTable.ItemsSource = shitAsscinemateka;
                 }
             }  
         }
@@ -84,15 +80,16 @@ namespace Cinemateka
         {
 
             //TODO придумать, как передавать текущий фильм
-
-            var movie = new CinematekaTable { KpId = 77443, Title = "Город грехов (2005)"};
+            var title = label_Title.Content;
+            var id = KinopoiskApi.GetKinopoiskId(title.ToString());
+            var movie = new CinematekaTable { KpId = Convert.ToInt32(id), Title = title.ToString()};
             using (var db = new ShitAssContext())
             {
                 db.CinematekaTables.Add(movie);
                 db.SaveChanges();
             }
             ButtonShowAll_Click(sender, e);
-            tab_Cinemateka.SelectedIndex = 1;
+            tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
         }
 
         private void DeleteFromDB_Click(object sender, RoutedEventArgs e)
@@ -123,31 +120,45 @@ namespace Cinemateka
                 }
 
                 DataTable.ItemsSource = shitAsscinemateka;
-            }
-            
+            } 
         }
 
         private void ButtonShowAll_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new ShitAssContext())
             {
-                DataTable.ItemsSource = db.CinematekaTables.ToList();
-            }
+                var movieList = db.CinematekaTables;
+                DataTable.ItemsSource = movieList.ToList();
+            }            
         }
 
         private void ShowMovie(Movie movie)
         {
             label_Title.Content = movie.Title;
             label_OriginalTitle.Content = movie.Title_Alternative;
-            label_Director.Content = movie.Directors;
-            label_Actors.Content = movie.Actors;
+            label_Director.Content = movie.Directors[0];
+            label_Actors.Content = $"{movie.Actors[0]}, {movie.Actors[1]}, {movie.Actors[2]}";
             label_Description.Content = movie.Description;
             label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
             label_IMDbRating.Content = movie.Rating_Kinopoisk;
+            var path = "https:" + movie.Poster;
+            var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+            image_Poster.Source = image;
         }
 
-        
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var list = new ObservableCollection<CinematekaTable>();
+            DataTable.ItemsSource = list;
+        }
 
-        
+        private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = (CinematekaTable)DataTable.SelectedItem as CinematekaTable;
+            var title = item.Title;
+            var movie = KinopoiskApi.GetMovieByTheTitle(title);
+            ShowMovie(movie);
+            tabcontrol_Cinemateka.SelectedItem = tab_Movie;
+        }
     }
 }

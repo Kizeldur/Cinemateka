@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800">
     <Grid Margin="0,0,0,7">
-        <TabControl x:Name="tab_Cinemateka" SelectedIndex="0">
-            <TabItem Header="TabItem">
+        <TabControl x:Name="tabcontrol_Cinemateka" SelectedIndex="0">
+            <TabItem x:Name="tab_Movie" Header="Movie">
                 <Grid Background="#FFE5E5E5">
                     <Image x:Name="image_Poster"  
                            Source="https://st4.depositphotos.com/17828278/24401/v/600/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available.jpg" 
@@ -19,35 +19,35 @@
                            Width="220"/>
                     <Label x:Name="label_Title"
                         Content="None" 
-                           HorizontalAlignment="Left" 
-                           Margin="364,46,0,0" 
-                           VerticalAlignment="Top" 
-                           Width="201"/>
+                        HorizontalAlignment="Left" 
+                        Margin="364,46,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="201"/>
                     <Label x:Name="label_OriginalTitle"
                         Content="None" 
-                           HorizontalAlignment="Left" 
-                           Margin="364,79,0,0" 
-                           VerticalAlignment="Top" 
-                           Width="147"/>
+                        HorizontalAlignment="Left" 
+                        Margin="364,79,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="147"/>
                     <Label x:Name="label_Description"
                         Content="None" 
-                           HorizontalAlignment="Left" 
-                           Margin="192,243,0,0" 
-                           VerticalAlignment="Top" 
-                           Width="538" Height="137"/>
+                        HorizontalAlignment="Left" 
+                        Margin="192,243,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="538" Height="137"/>
                     <Button x:Name="btn_SaveInDB" 
-                            Content="Сохр. в БД" 
-                            HorizontalAlignment="Left" 
-                            Margin="635,59,0,0" 
-                            VerticalAlignment="Top" 
-                            Width="99" Height="33"
-                            Click="btn_SaveInDB_Click"/>
+                        Content="Сохр. в БД" 
+                        HorizontalAlignment="Left" 
+                        Margin="635,59,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="99" Height="33"
+                        Click="btn_SaveInDB_Click"/>
                     <Label
                         x:Name="label_Director"
                         Content="None" 
                         HorizontalAlignment="Left" 
                         Margin="388,164,0,0" 
-                        VerticalAlignment="Top" Width="103"/>
+                        VerticalAlignment="Top" Width="177"/>
                     <Label Content="О фильме" 
                         HorizontalAlignment="Left" 
                         Margin="364,121,0,0" 
@@ -68,7 +68,16 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
                         Margin="388,202,0,0" 
-                        Height="26" Width="103"/>
+                        Height="26" Width="193" RenderTransformOrigin="0.5,0.5">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.342"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
                     <Label Content="Kinopoisk" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
@@ -92,10 +101,10 @@
                         Margin="689,177,0,0" 
                         Width="43"/>
                     <Label Content="Рейтинг фильма" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="619,108,0,0"
-                           Width="113"/>
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="619,108,0,0"
+                        Width="113"/>
                     <TextBox x:Name="Input_SearchKinopoisk" 
                         HorizontalAlignment="Left" 
                         Margin="161,10,0,0"
@@ -118,7 +127,7 @@
                         VerticalAlignment="Top" Height="20" Width="87"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
+            <TabItem x:Name="tab_Cinemateka" Header="Cinemateka">
                 <Grid Background="#FFE5E5E5">
                     <TextBox x:Name="Input_SearchDB" 
                         HorizontalAlignment="Left" 
@@ -146,6 +155,28 @@
                         VerticalAlignment="Top" 
                         Height="16" 
                         Width="94"/>
+
+                    <DataGrid x:Name="DataTable" 
+                              Margin="77,93,95,134" 
+                              AutoGenerateColumns="False" 
+                              CanUserResizeColumns="True" 
+                              Grid.ColumnSpan="2"
+                              MouseDoubleClick="DataTable_MouseDoubleClick">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Id" Binding="{Binding KpId, Mode=TwoWay}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=TwoWay}" IsReadOnly="True"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="DeleteFromDB" Height="20" Width="50" Click="DeleteFromDB_Click">Delete</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <!--
                     <StackPanel  Margin="77,93,50,134">
                         <ListBox x:Name="DataTable"
                             FontSize="16"
@@ -157,7 +188,7 @@
                                         <TextBox Text="{Binding KpId, Mode=TwoWay}" 
                                                  Height="30" Width="90"/>
                                         <TextBox Text="{Binding Title, Mode=TwoWay}" 
-                                                 Height="30" Width="90"/>
+                                                 Height="30" Width="350"/>
                                         <Button x:Name="DeleteBtn"
                                                 Content="Уд."
                                                 Height="30" Width="80" 
@@ -167,6 +198,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
+                    -->
 
                     <TextBlock HorizontalAlignment="Left"
                         Text="Прогресс"
@@ -182,7 +214,8 @@
                     <Button x:Name="ButtonDelete"    
                         FontSize="10"
                         Content="Delete" 
-                        Margin="534,350,90,69"/>
+                        Margin="534,350,90,69"
+                        Click="ButtonDelete_Click"/>
                     <Button x:Name="ButtonShowAll"
                         FontSize="10"
                         Content="Show All" Margin="387,350,228,69"

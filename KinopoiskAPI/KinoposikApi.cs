@@ -7,11 +7,20 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace KinopoiskAPI
 {
-    public class KinipoiskApi
+    public class KinopoiskApi
     {
+        static public Movie GetMovieByTheTitle(string title)
+        {
+            var url = KinopoiskApi.GetKinopoiskUrl(title);
+            var json = KinopoiskApi.GetKinopoiskData(url);
+            var movie = JsonConvert.DeserializeObject<Movie>(json);
+            return movie;
+        }
+
         static public string GetKinopoiskData(string url)
         {
             var request = WebRequest.Create(url);
@@ -32,7 +41,7 @@ namespace KinopoiskAPI
             return $"https://api.kinopoisk.cloud/movies/{kinopoiskId}/token/e479bfa37eb4a59d8463c13222f75367";
         }
 
-        static private string GetKinopoiskId(string MovieName, string searchEngine = "google")
+        static public string GetKinopoiskId(string MovieName, string searchEngine = "google")
         {
             string GoogleSearch = "http://www.google.com/search?q=kinopoisk+";
             string BingSearch = "http://www.bing.com/search?q=kinopoisk+";
