@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Cinemateka.Tab_Cinemateka"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cinemateka"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#FFE5E5E5">
+        <TextBox x:Name="Input_SearchDB" 
+                        HorizontalAlignment="Left" 
+                        Margin="200,29,0,0"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top"
+                        Width="264" Height="20"
+                        RenderTransformOrigin="0.516,0.625"/>
+        <Button x:Name="Button_SearchDB" Content="Поиск" 
+                        HorizontalAlignment="Left" 
+                        Margin="478,29,0,0" 
+                        VerticalAlignment="Top"
+                        Click="Button_SearchDB_Click" 
+                        RenderTransformOrigin="0.465,0.536" 
+                        Height="20" Width="38"/>
+        <TextBlock Text="Поиск фильмов" 
+                        HorizontalAlignment="Left" 
+                        Margin="77,29,0,0" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" Height="20" Width="87"/>
+        <TextBlock HorizontalAlignment="Left"
+                        Text="Результат поиска"
+                        Margin="77,72,0,0" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" 
+                        Height="16" 
+                        Width="94"/>
+
+        <DataGrid x:Name="DataTable" 
+                              Margin="77,93,95,134" 
+                              AutoGenerateColumns="False" 
+                              CanUserResizeColumns="True" 
+                              Grid.ColumnSpan="2"
+                              >
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Id" Binding="{Binding KpId, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="DeleteFromDB" Height="20" Width="50" >Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <!--
+                    <StackPanel  Margin="77,93,50,134">
+                        <ListBox x:Name="DataTable"
+                            FontSize="16"
+                            Foreground="Brown" 
+                            Height="230">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox Text="{Binding KpId, Mode=TwoWay}" 
+                                                 Height="30" Width="90"/>
+                                        <TextBox Text="{Binding Title, Mode=TwoWay}" 
+                                                 Height="30" Width="350"/>
+                                        <Button x:Name="DeleteBtn"
+                                                Content="Уд."
+                                                Height="30" Width="80" 
+                                                Click="DeleteFromDB_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    -->
+
+        <TextBlock HorizontalAlignment="Left"
+                        Text="Прогресс"
+                        VerticalAlignment="Top" 
+                        Margin="82,371,0,0" 
+                        TextWrapping="Wrap"/>
+        <Label x:Name="label_progress" 
+                        Content="Label" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        Margin="0,369,0,0" 
+                        Width="212" Height="32"/>
+        <Button x:Name="ButtonDelete"    
+                        FontSize="10"
+                        Content="Delete" 
+                        Margin="534,350,90,69"
+                        />
+        <Button x:Name="ButtonShowAll"
+                        FontSize="10"
+                        Content="Show All" Margin="387,350,228,69"
+                        />
+    </Grid>
+</UserControl>
