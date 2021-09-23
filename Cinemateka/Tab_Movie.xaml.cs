@@ -27,6 +27,38 @@ namespace Cinemateka
         }
 
 
+        private void Button_SearchKinopoisk_Click(object sender, RoutedEventArgs e)
+        {
+            var argument = Input_SearchKinopoisk.Text;
+            if (argument == "")
+            {
+                Input_SearchKinopoisk.Text = "Пожалуйста, введите аргументы поиска";
+            }
+            else
+            {
+                var movie = KinopoiskApi.GetMovieByTheTitle(argument);
+                ShowMovie(movie);
+            }
+        }
+
+        private void btn_SaveInDB_Click(object sender, RoutedEventArgs e)
+        {
+
+            //TODO придумать, как передавать текущий фильм
+            var title = label_Title.Content;
+            var id = KinopoiskApi.GetKinopoiskId(title.ToString());
+            var movie = new CinematekaTable { KpId = Convert.ToInt32(id), Title = title.ToString() };
+            using (var db = new ShitAssContext())
+            {
+                db.CinematekaTables.Add(movie);
+                db.SaveChanges();
+            }
+            //TODO привязать методы
+            //ButtonShowAll_Click(sender, e);
+            //tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
+        }
+
+
 
         public void ShowMovie(Movie movie)
         {
@@ -42,5 +74,10 @@ namespace Cinemateka
             //label_IMDbRating.Content = movie.Rating_Kinopoisk;
 
         }
+
+        //Events
+
+        public event EventHandler ShowAll;
+        public event EventHandler ChangeTab;
     }
 }

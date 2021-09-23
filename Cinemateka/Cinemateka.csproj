@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KinopoiskAPI\KinopoiskAPI.csproj" />
+      <ProjectReference Include="..\ShitAssContextPj\DataBaseApi.csproj" />
     </ItemGroup>
 
 </Project>

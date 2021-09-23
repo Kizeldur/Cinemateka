@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,26 +26,117 @@ namespace Cinemateka
         public Tab_Cinemateka()
         {
             InitializeComponent();
-            
+            var db = new ShitAssContext();
+            db.CinematekaTables.ToList();
             
         }
 
         private void Button_SearchDB_Click(object sender, RoutedEventArgs e)
         {
-            var movie = new Movie { Id = "798", Title = "qwe" };
-            var m = new Tab_Movie();
-            m.ShowMovie(movie);
+            var argument = Input_SearchDB.Text;
+            if (argument == "")
+            {
+                label_progress.Content = "Пожалуйста, введите аргументы поиска";
+            }
+            else
+            {
+                List<CinematekaTable> shitAsscinemateka = new List<CinematekaTable>();
+                DataTable.ItemsSource = shitAsscinemateka;
+                using (var db = new ShitAssContext())
+                {
+                    foreach (var movie in db.CinematekaTables)
+                    {
+                        if (argument == movie.Title)
+                        {
+                            label_progress.Content = movie.Title;
+                            shitAsscinemateka.Add(movie);
+                        }
+                    }
+                    DataTable.ItemsSource = shitAsscinemateka;
+                }
+            }
+        }
+
+        public void SaveToDB(CinematekaTable movie)
+        {
+            using (var db = new ShitAssContext())
+            {
+                db.CinematekaTables.Add(movie);
+                db.SaveChanges();
+            }
+            ShowAll();
+            //tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
+        }
+
+
+        private void DeleteFromDB_Click(object sender, RoutedEventArgs e)
+        {
+            CinematekaTable row = ((FrameworkElement)sender).DataContext as CinematekaTable;
+            using (var db = new ShitAssContext())
+            {
+                db.CinematekaTables.Remove(row);
+                db.SaveChanges();
+            }
+            ButtonShowAll_Click(sender, e);
+        }
+
+        private void ShowCinematekaList()
+        {
+            var argument = Input_SearchDB.Text;
+            List<CinematekaTable> shitAsscinemateka = new List<CinematekaTable>();
+
+            using (var db = new ShitAssContext())
+            {
+                foreach (var movie in db.CinematekaTables)
+                {
+                    if (argument == movie.Title)
+                    {
+                        label_progress.Content = movie.Title;
+                        shitAsscinemateka.Add(movie);
+                    }
+                }
+
+                DataTable.ItemsSource = shitAsscinemateka;
+            }
+        }
+
+        public void ButtonShowAll_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAll();
+        }
+
+        public void ShowAll()
+        {
+            using (var db = new ShitAssContext())
+            {
+                var movieList = db.CinematekaTables;
+                DataTable.ItemsSource = movieList.ToList();
+            }
+        }
+
+
+
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var list = new ObservableCollection<CinematekaTable>();
+            DataTable.ItemsSource = list;
         }
 
         private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var tab_movie = new Tab_Movie();
             var item = (CinematekaTable)DataTable.SelectedItem as CinematekaTable;
             var title = item.Title;
             var movie = KinopoiskApi.GetMovieByTheTitle(title);
-            tab_movie.ShowMovie(movie);
-            //tab_movie.tabcontrol_Cinemateka.SelectedItem = tab_movie.tab_Movie;
-            e.Handled = true;
+            //Привязать методы Tab_Movie
+            //ShowMovie(movie);
+            //tabcontrol_Cinemateka.SelectedItem = tab_Movie;
         }
+
+
+        //TODO Евенты
+        public event EventHandler ChangeTab;
+        public event EventHandler ShowMovie;
+
     }
 }
