@@ -32,6 +32,7 @@ namespace Cinemateka
         {
             InitializeComponent();
             //tab_content_Movie.ShowAll += tab_content_Cinemateka.ButtonShowAll_Click;
+            tab_content_Cinemateka.DoubleClick += DataTable_MouseDoubleClick;
         }
 
         private void DBConnect()
@@ -50,12 +51,25 @@ namespace Cinemateka
             }
         }
 
-        private void DBEFConnect()
+        public void SaveToDB(CinematekaTable movie)
         {
-            var db = new ShitAssContext();
-            
+            using (var db = new ShitAssContext())
+            {
+                db.CinematekaTables.Add(movie);
+                db.SaveChanges();
+            }
+            tab_content_Cinemateka.ShowAll();
+            tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
         }
 
-       
+        public void DataTable_MouseDoubleClick(object sender, EventArgs e)
+        {
+            var item = (CinematekaTable)tab_content_Cinemateka.DataTable.SelectedItem as CinematekaTable;
+            var title = item.Title;
+            var movie = KinopoiskApi.GetMovieByTheTitle(title);
+            tab_content_Movie.ShowMovie(movie);
+            tabcontrol_Cinemateka.SelectedItem = tab_Movie;
+            
+        }
     }
 }

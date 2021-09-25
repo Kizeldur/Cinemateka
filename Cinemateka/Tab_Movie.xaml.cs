@@ -62,16 +62,16 @@ namespace Cinemateka
 
         public void ShowMovie(Movie movie)
         {
-            //var path = "https:" + movie.Poster;
-            //var image = new BitmapImage(new Uri(path, UriKind.Absolute));
-            //image_Poster.Source = image;
+            var path = "https:" + movie.Poster;
+            var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+            image_Poster.Source = image;
             label_Title.Content = movie.Title;
-            //label_OriginalTitle.Content = movie.Title_Alternative;
-            //label_Director.Content = movie.Directors[0];
-            //label_Actors.Content = $"{movie.Actors[0]}, {movie.Actors[1]}, {movie.Actors[2]}";
-            //label_Description.Content = movie.Description;
-            //label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
-            //label_IMDbRating.Content = movie.Rating_Kinopoisk;
+            label_OriginalTitle.Content = movie.Title_Alternative;
+            label_Director.Content = movie.Directors[0];
+            label_Actors.Content = $"{movie.Actors[0]}, {movie.Actors[1]}, {movie.Actors[2]}";
+            label_Description.Content = movie.Description;
+            label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
+            label_IMDbRating.Content = movie.Rating_Kinopoisk;
 
         }
 

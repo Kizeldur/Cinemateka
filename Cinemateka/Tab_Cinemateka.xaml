@@ -39,6 +39,7 @@
                               AutoGenerateColumns="False" 
                               CanUserResizeColumns="True" 
                               Grid.ColumnSpan="2"
+                                MouseDoubleClick="DataTable_MouseDoubleClick"
                               >
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Id" Binding="{Binding KpId, Mode=TwoWay}" IsReadOnly="True"/>
@@ -97,6 +98,7 @@
         <Button x:Name="ButtonShowAll"
                         FontSize="10"
                         Content="Show All" Margin="387,350,228,69"
+                        Click="ButtonShowAll_Click"
                         />
     </Grid>
 </UserControl>

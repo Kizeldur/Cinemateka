@@ -15,8 +15,7 @@ namespace KinopoiskAPI
         public string Title { get; set; }
         public string Title_Alternative { get; set; }
         public string Description { get; set; }
-       // public string Directors { get; set; }
-        //public string Poster { get; set; }
+        public string Poster { get; set; }
         public string Trailer { get; set; }
         public string Year { get; set; }
         public string Age { get; set; }

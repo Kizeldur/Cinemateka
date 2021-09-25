@@ -123,7 +123,7 @@ namespace Cinemateka
             DataTable.ItemsSource = list;
         }
 
-        private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /*private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var item = (CinematekaTable)DataTable.SelectedItem as CinematekaTable;
             var title = item.Title;
@@ -131,6 +131,14 @@ namespace Cinemateka
             //Привязать методы Tab_Movie
             //ShowMovie(movie);
             //tabcontrol_Cinemateka.SelectedItem = tab_Movie;
+        }*/
+
+        public event EventHandler DoubleClick;
+        private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EventHandler handler =  DoubleClick;
+            if (handler != null) handler(sender, e);
+            e.Handled = true;
         }
 
 
