@@ -47,7 +47,10 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="DeleteFromDB" Height="20" Width="50" >Delete</Button>
+                            <Button x:Name="DeleteFromDB" 
+                                    Height="20" Width="50" 
+                                    Content="Delete"
+                                    Click="DeleteFromDB_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -93,11 +96,11 @@
         <Button x:Name="ButtonDelete"    
                         FontSize="10"
                         Content="Delete" 
-                        Margin="534,350,90,69"
+                        Margin="572,348,68,71"
                         />
         <Button x:Name="ButtonShowAll"
                         FontSize="10"
-                        Content="Show All" Margin="387,350,228,69"
+                        Content="Show All" Margin="412,348,228,71"
                         Click="ButtonShowAll_Click"
                         />
     </Grid>

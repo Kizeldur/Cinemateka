@@ -56,19 +56,7 @@ namespace Cinemateka
                 }
             }
         }
-
-        public void SaveToDB(CinematekaTable movie)
-        {
-            using (var db = new ShitAssContext())
-            {
-                db.CinematekaTables.Add(movie);
-                db.SaveChanges();
-            }
-            ShowAll();
-            //tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
-        }
-
-
+     
         private void DeleteFromDB_Click(object sender, RoutedEventArgs e)
         {
             CinematekaTable row = ((FrameworkElement)sender).DataContext as CinematekaTable;
@@ -115,36 +103,18 @@ namespace Cinemateka
         }
 
 
-
-
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             var list = new ObservableCollection<CinematekaTable>();
             DataTable.ItemsSource = list;
         }
 
-        /*private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var item = (CinematekaTable)DataTable.SelectedItem as CinematekaTable;
-            var title = item.Title;
-            var movie = KinopoiskApi.GetMovieByTheTitle(title);
-            //Привязать методы Tab_Movie
-            //ShowMovie(movie);
-            //tabcontrol_Cinemateka.SelectedItem = tab_Movie;
-        }*/
-
-        public event EventHandler DoubleClick;
+        public event EventHandler DoubleClickEvent;
         private void DataTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            EventHandler handler =  DoubleClick;
+            EventHandler handler =  DoubleClickEvent;
             if (handler != null) handler(sender, e);
             e.Handled = true;
         }
-
-
-        //TODO Евенты
-        public event EventHandler ChangeTab;
-        public event EventHandler ShowMovie;
-
     }
 }

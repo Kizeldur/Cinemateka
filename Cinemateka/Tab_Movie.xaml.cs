@@ -41,24 +41,17 @@ namespace Cinemateka
             }
         }
 
+        public event EventHandler SaveInDBEvent;
+
         private void btn_SaveInDB_Click(object sender, RoutedEventArgs e)
         {
-
-            //TODO придумать, как передавать текущий фильм
             var title = label_Title.Content;
             var id = KinopoiskApi.GetKinopoiskId(title.ToString());
-            var movie = new CinematekaTable { KpId = Convert.ToInt32(id), Title = title.ToString() };
-            using (var db = new ShitAssContext())
-            {
-                db.CinematekaTables.Add(movie);
-                db.SaveChanges();
-            }
-            //TODO привязать методы
-            //ButtonShowAll_Click(sender, e);
-            //tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
+            var movie = new CinematekaTable {KpId = Convert.ToInt32(id), Title = title.ToString()};
+            EventHandler handler = SaveInDBEvent;
+            if (handler != null) handler(sender, e);
+            e.Handled = true;
         }
-
-
 
         public void ShowMovie(Movie movie)
         {
@@ -68,16 +61,12 @@ namespace Cinemateka
             label_Title.Content = movie.Title;
             label_OriginalTitle.Content = movie.Title_Alternative;
             label_Director.Content = movie.Directors[0];
-            label_Actors.Content = $"{movie.Actors[0]}, {movie.Actors[1]}, {movie.Actors[2]}";
+            label_Actors.Content = $"{movie.Actors[0]},\n {movie.Actors[1]},\n {movie.Actors[2]},\n {movie.Actors[3]},\n..";
             label_Description.Content = movie.Description;
             label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
             label_IMDbRating.Content = movie.Rating_Kinopoisk;
+            
 
-        }
-
-        //Events
-
-        public event EventHandler ShowAll;
-        public event EventHandler ChangeTab;
+        }      
     }
 }

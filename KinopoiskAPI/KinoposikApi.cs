@@ -31,23 +31,27 @@ namespace KinopoiskAPI
             var url = KinopoiskApi.GetKinopoiskUrl(title);
             var json = KinopoiskApi.GetKinopoiskData(url);
             var movie = JsonConvert.DeserializeObject<Movie>(json);
+            
+
             return movie;
         }
 
         static public string GetKinopoiskUrl(string title)
         {
+            
             string kinopoiskId = GetKinopoiskId(System.Uri.EscapeUriString(title));
+            //string kinopoiskId = GetKinopoiskId(System.Uri.EscapeUriString(title));
             return $"https://api.kinopoisk.cloud/movies/{kinopoiskId}/token/e479bfa37eb4a59d8463c13222f75367";
         }
 
-        static public string GetKinopoiskId(string MovieName, string searchEngine = "google")
+        /*static public string GetKinopoiskId(string title, string searchEngine = "google")
         {
             string GoogleSearch = "http://www.google.com/search?q=kinopoisk+";
             string BingSearch = "http://www.bing.com/search?q=kinopoisk+";
             string AskSearch = "http://www.ask.com/web?q=kinopoisk+";
-            string url = GoogleSearch + MovieName; //default to Google search
-            if (searchEngine.ToLower().Equals("bing")) url = BingSearch + MovieName;
-            if (searchEngine.ToLower().Equals("ask")) url = AskSearch + MovieName;
+            string url = GoogleSearch + title; //default to Google search
+            if (searchEngine.ToLower().Equals("bing")) url = BingSearch + title;
+            if (searchEngine.ToLower().Equals("ask")) url = AskSearch + title;
             string html = GetUrlData(url);
             string regex = @"(film/)\d+";
             var reg = new Regex(regex);
@@ -60,11 +64,53 @@ namespace KinopoiskAPI
                 return id;
             } //return first IMDb result
             else if (searchEngine.ToLower().Equals("google")) //if Google search fails
-                return GetKinopoiskId(MovieName, "bing"); //search using Bing
+                return GetKinopoiskId(title, "bing"); //search using Bing
             else if (searchEngine.ToLower().Equals("bing")) //if Bing search fails
-                return GetKinopoiskId(MovieName, "ask"); //search using Ask
+                return GetKinopoiskId(title, "ask"); //search using Ask
             else //search fails
                 return string.Empty;
+        }*/
+
+        static public string GetKinopoiskId(string title)
+        {
+            var ids = GetKinopoiskIds(title);
+            return ids[0];
+        }
+
+        static public List<string> GetKinopoiskIds(string title, string searchEngine = "google")
+        {
+            string GoogleSearch = "http://www.google.com/search?q=kinopoisk+";
+            string BingSearch = "http://www.bing.com/search?q=kinopoisk+";
+            string AskSearch = "http://www.ask.com/web?q=kinopoisk+";
+            string url = GoogleSearch + title; //default to Google search
+            if (searchEngine.ToLower().Equals("bing")) url = BingSearch + title;
+            if (searchEngine.ToLower().Equals("ask")) url = AskSearch + title;
+            string html = GetUrlData(url);
+            string regex = @"(film/)\d+";
+            var reg = new Regex(regex);
+            var imdbUrls = reg.Matches(html);
+            if(imdbUrls.Count > 0)
+            {
+                string[] ids = new string[imdbUrls.Count];
+                var idList = new List<string>();
+                for (int i = 0; i < imdbUrls.Count; i++)
+                {
+                    var matchId = imdbUrls.ElementAt(i);
+                    var id = matchId.Value.Split("/")[matchId.Value.Split("/").Length - 1];
+                    if (!idList.Contains(id))
+                    {
+                        idList.Add(id);
+                    }                    
+                }
+                return idList;
+            }
+            else if (searchEngine.ToLower().Equals("google")) //if Google search fails
+                return GetKinopoiskIds(title, "bing"); //search using Bing
+            else if (searchEngine.ToLower().Equals("bing")) //if Bing search fails
+                return GetKinopoiskIds(title, "ask"); //search using Ask
+            else //search fails
+                throw new Exception();
+
         }
 
         static private string GetUrlData(string url)
