@@ -15,6 +15,8 @@ namespace KinopoiskAPI
     {
         static public string GetKinopoiskData(string url)
         {
+            //TODO сделать ассинхронным
+
             var request = WebRequest.Create(url);
             request.Method = "GET";
 
@@ -24,6 +26,31 @@ namespace KinopoiskAPI
             using var reader = new StreamReader(webStream);
             var data = reader.ReadToEnd();
             return data;
+        }
+
+
+        static public string GetKinopoiskData(string url, out bool flag)
+        {
+            //TODO сделать ассинхронным
+
+            var request = WebRequest.Create(url);
+            request.Method = "GET";
+
+            try
+            {
+                using var webResponse = request.GetResponse();
+                using var webStream = webResponse.GetResponseStream();
+
+                using var reader = new StreamReader(webStream);
+                var data = reader.ReadToEnd();
+                flag = true;
+                return data;
+            }
+            catch (Exception)
+            {
+                flag = false;
+                return "Соси Бибу";
+            }
         }
 
         static public Movie GetMovieByTheTitle(string title)
@@ -40,8 +67,13 @@ namespace KinopoiskAPI
         {
             
             string kinopoiskId = GetKinopoiskId(System.Uri.EscapeUriString(title));
-            //string kinopoiskId = GetKinopoiskId(System.Uri.EscapeUriString(title));
+          
             return $"https://api.kinopoisk.cloud/movies/{kinopoiskId}/token/e479bfa37eb4a59d8463c13222f75367";
+        }
+
+        static public string GetKinopoiskUrl(int kinopoiskId)
+        {
+            return $"https://api.kinopoisk.cloud/movies/{kinopoiskId.ToString()}/token/e479bfa37eb4a59d8463c13222f75367";
         }
 
         /*static public string GetKinopoiskId(string title, string searchEngine = "google")

@@ -27,6 +27,8 @@ namespace Cinemateka
         }
 
 
+        public event EventHandler ShowMovieListEvent;
+
         private void Button_SearchKinopoisk_Click(object sender, RoutedEventArgs e)
         {
             var argument = Input_SearchKinopoisk.Text;
@@ -36,9 +38,14 @@ namespace Cinemateka
             }
             else
             {
+                
                 var movie = KinopoiskApi.GetMovieByTheTitle(argument);
                 ShowMovie(movie);
             }
+
+            EventHandler handler = ShowMovieListEvent;
+            if (handler != null) handler(sender, e);
+            
         }
 
         public event EventHandler SaveInDBEvent;
@@ -55,13 +62,18 @@ namespace Cinemateka
 
         public void ShowMovie(Movie movie)
         {
-            var path = "https:" + movie.Poster;
-            var image = new BitmapImage(new Uri(path, UriKind.Absolute));
-            image_Poster.Source = image;
+            if (movie.Poster != null)
+            {
+                var path = "https:" + movie.Poster;
+                var image = new BitmapImage(new Uri(path, UriKind.Absolute));
+                image_Poster.Source = image;
+            }
+            
             label_Title.Content = movie.Title;
             label_OriginalTitle.Content = movie.Title_Alternative;
             label_Director.Content = movie.Directors[0];
-            label_Actors.Content = $"{movie.Actors[0]},\n {movie.Actors[1]},\n {movie.Actors[2]},\n {movie.Actors[3]},\n..";
+
+            label_Actors.Content = $"{movie.Actors[0]},\n {movie.Actors[1]},\n {movie.Actors[2]},\n..";
             label_Description.Content = movie.Description;
             label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
             label_IMDbRating.Content = movie.Rating_Kinopoisk;

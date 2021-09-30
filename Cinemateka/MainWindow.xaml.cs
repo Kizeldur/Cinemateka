@@ -33,6 +33,7 @@ namespace Cinemateka
             InitializeComponent();
             tab_content_Cinemateka.DoubleClickEvent += DataTable_MouseDoubleClick;
             tab_content_Movie.SaveInDBEvent += SaveInDB;
+            tab_content_Movie.ShowMovieListEvent += ShowMovieList;
         }
 
         private void DBConnect()
@@ -72,7 +73,32 @@ namespace Cinemateka
             var movie = KinopoiskApi.GetMovieByTheTitle(title);
             tab_content_Movie.ShowMovie(movie);
             tabcontrol_Cinemateka.SelectedItem = tab_Movie;
-            
+        }
+
+        public void ShowMovieList(object sender, EventArgs e)
+        {
+            var title = tab_content_Movie.Input_SearchKinopoisk.Text;
+            var ids = KinopoiskApi.GetKinopoiskIds(title);
+            bool flag=true;
+            var cinemateka = new List<CinematekaTable>();
+            foreach (var id in ids)
+            {
+                var url = KinopoiskApi.GetKinopoiskUrl(Convert.ToInt32(id));
+                var json = KinopoiskApi.GetKinopoiskData(url, out flag);
+                
+                if (flag)
+                {
+                    var movie = JsonConvert.DeserializeObject<Movie>(json);
+                    cinemateka.Add(new CinematekaTable
+                    {
+                        KpId = Convert.ToInt32(movie.Id_Kinopoisk),
+                        Title = movie.Title
+                    });
+                }
+            }
+
+            tab_content_Cinemateka.DataTable.ItemsSource = cinemateka;
+            tabcontrol_Cinemateka.SelectedItem = tab_Cinemateka;
         }
     }
 }
