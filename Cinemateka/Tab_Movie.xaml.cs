@@ -72,8 +72,20 @@ namespace Cinemateka
             label_Title.Content = movie.Title;
             label_OriginalTitle.Content = movie.Title_Alternative;
             label_Director.Content = movie.Directors[0];
-
-            label_Actors.Content = $"{movie.Actors[0]},\n {movie.Actors[1]},\n {movie.Actors[2]},\n..";
+            var actorsString = String.Empty;
+            if (movie.Actors.Length > 3)
+            {
+                actorsString += $"{movie.Actors[0]},\n {movie.Actors[1]},\n {movie.Actors[2]},\n..";
+            }
+            else
+            {
+                foreach (var actor in movie.Actors)
+                {
+                    actorsString += $"{actor},\n";
+                }
+            }
+            actorsString += "..\n";
+            label_Actors.Content = actorsString;
             label_Description.Content = movie.Description;
             label_KinopoiskRating.Content = movie.Rating_Kinopoisk;
             label_IMDbRating.Content = movie.Rating_Kinopoisk;
