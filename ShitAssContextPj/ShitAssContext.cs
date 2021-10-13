@@ -18,8 +18,7 @@ namespace Cinemateka
         }
 
         public virtual DbSet<CinematekaTable> CinematekaTables { get; set; }
-        public virtual DbSet<TableCinemateka> TableCinematekas { get; set; }
-        public virtual DbSet<TableUser> TableUsers { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -50,56 +49,6 @@ namespace Cinemateka
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("text");
-            });
-
-            modelBuilder.Entity<TableCinemateka>(entity =>
-            {
-                entity.ToTable("table_cinemateka");
-
-                entity.HasIndex(e => e.MovieTitle, "table_cinemateka_Movie_Title_uindex")
-                    .IsUnique();
-
-                entity.Property(e => e.Id)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("id");
-
-                entity.Property(e => e.Director)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("director");
-
-                entity.Property(e => e.LeadActor)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("lead_actor");
-
-                entity.Property(e => e.MovieTitle)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("movie_title");
-
-                entity.Property(e => e.Year)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("year");
-            });
-
-            modelBuilder.Entity<TableUser>(entity =>
-            {
-                entity.ToTable("table_user");
-
-                entity.Property(e => e.Id)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("id");
-
-                entity.Property(e => e.IsActive)
-                    .IsRequired()
-                    .HasColumnName("isActive")
-                    .HasDefaultValueSql("'1'");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("name");
             });
 
             OnModelCreatingPartial(modelBuilder);
